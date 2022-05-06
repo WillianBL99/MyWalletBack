@@ -21,7 +21,8 @@ export async function signUp(req, res) {
             )
         }
 
-        //TODO: verificar se usuário já foi cadastrado
+        const email = await db.collection('users').findOne({email: body.email});
+        if(email) return res.status(409).send('Email already registered');
             
         const passwordHash = bcrypt.hashSync(body.password, 10);
         await db.collection('users').insertOne({...body, password: passwordHash});

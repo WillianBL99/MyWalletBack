@@ -1,6 +1,7 @@
 import chalk from "chalk";
 import db from '../db.js';
 import joi from 'joi';
+import dayjs from 'dayjs'
 
 export async function getTransactions(req, res) {
     try {
@@ -20,7 +21,7 @@ export async function postTransaction(req, res) {
         const transaction = req.body;
 
         const userSchema = joi.object({
-            description: joi.string().mim(4).required(),
+            description: joi.string().min(4).required(),
             operation: joi.any().valid('entry', 'exit').required(),
             price: joi.number().precision(2).required()
         });
@@ -33,7 +34,7 @@ export async function postTransaction(req, res) {
             )
         }
 
-        const date = Date();
+        const date = dayjs().format('DD/MM');
 
         await db.collection('transactions').insertOne({
            date,
