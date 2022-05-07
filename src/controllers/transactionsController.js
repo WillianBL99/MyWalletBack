@@ -26,7 +26,7 @@ export async function postTransaction(req, res) {
             price: joi.number().precision(2).required()
         });
 
-        const {error} = userSchema.validate(transaction, {abortEarly:false});        
+         const {error} = userSchema.validate(transaction, {abortEarly:false});        
         
         if (error) {
             return res.status(422).send(

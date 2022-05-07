@@ -27,8 +27,6 @@ export async function signUp(req, res) {
         const passwordHash = bcrypt.hashSync(body.password, 10);
         await db.collection('users').insertOne({...body, password: passwordHash});
 
-        delete body.password;
-
         res.sendStatus(201)
         
     } catch (e) {
@@ -45,7 +43,7 @@ export async function signIn(req, res) {
         if(user && bcrypt.compareSync(password, user.password)){
             const token = uuid();
             await db.collection('sessions').insertOne({userId: user._id, token});
-            return res.send(token);
+            return res.send({token});
         } else {
             return res.status(404).send('Incorrect email or password');
         }
