@@ -43,7 +43,7 @@ export async function signIn(req, res) {
         if(user && bcrypt.compareSync(password, user.password)){
             const token = uuid();
             await db.collection('sessions').insertOne({userId: user._id, token});
-            return res.send({token});
+            return res.send({token, email, name: user.name});
         } else {
             return res.status(404).send('Incorrect email or password');
         }

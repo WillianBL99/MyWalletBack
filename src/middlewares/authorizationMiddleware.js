@@ -3,7 +3,7 @@ import db from "../db.js";
 
 export default async function headerAuthorization(req, res, next){
    try {
-    const {authorization} = req.headers;
+    const authorization= req.header('Authorization');
     if(!authorization){
         const textError = 'Authorization was not sent';
         console.log(chalk.bold.red(textError));

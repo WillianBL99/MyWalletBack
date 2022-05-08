@@ -5,7 +5,9 @@ import dayjs from 'dayjs'
 
 export async function getTransactions(req, res) {
     try {
-        const transactions = await db.collection('transactions').find().toArray();
+        const {_id} = req.authorizedUser;
+
+        const transactions = await db.collection('transactions').find({_id}).toArray();
         res.send(transactions);
 
     } catch (e){
