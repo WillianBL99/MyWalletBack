@@ -18,7 +18,6 @@ export default async function headerAuthorization(req, res, next){
 
     const token = authorization.replace('Bearer ', '');
     const session = await db.collection('sessions').findOne({token});
-
     if(!session) {
         return res.status(401).send('Token denied')
     }

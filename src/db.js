@@ -6,7 +6,7 @@ dotenv.config();
 
 let db = null;
 try {
-  const mongoClient = new MongoClient(process.env.MONGO_URL);
+  const mongoClient = new MongoClient(process.env.MONGO_URI);
   await mongoClient.connect();
   db = mongoClient.db(process.env.MW_DATABASE);
   console.log(chalk.bold.green("Database connection has been established!"));
